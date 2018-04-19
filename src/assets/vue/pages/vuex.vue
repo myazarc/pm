@@ -1,6 +1,6 @@
 <template>
   <f7-page>
-    <f7-navbar title="About F7" back-link="Back" sliding></f7-navbar>
+    <f7-navbar title="Giriş Yap" ></f7-navbar>
     <f7-block-title>{{user.name ? "You are already logged" : "Please login"}}</f7-block-title>
     <f7-list>
 			<f7-list-group v-if="user.name">
@@ -26,7 +26,8 @@
 			loginAction: function() {
 				const self = this;
 				// Set new user into storage
-        self.userLogged({name: "User", id: "#1"});
+				self.userLogged({name: "User", id: "#1"});
+				self.$f7router.navigate('/about/');
 			},
 			...mapActions(['userLogged'])
 		}
