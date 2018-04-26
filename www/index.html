@@ -1,168 +1,50 @@
-<!DOCTYPE html><html><head><meta http-equiv="content-security-policy" content="default-src *; script-src &apos;self&apos; data: &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; http://127.0.0.1:8081 http://192.168.1.17:8081; object-src &apos;self&apos; data: http://127.0.0.1:8081 http://192.168.1.17:8081; style-src &apos;self&apos; &apos;unsafe-inline&apos; data: ; img-src *; media-src &apos;self&apos; data: http://127.0.0.1:8081 http://192.168.1.17:8081; frame-src &apos;self&apos; data: http://127.0.0.1:8081 http://192.168.1.17:8081; font-src *; connect-src &apos;self&apos; data: http://127.0.0.1:8081 http://192.168.1.17:8081">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Device Router</title>
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
 
-    <style>
-        html {
-            background: #DDD;
-            font-size: 14px;
-            color: #222;
-            font-family: Arial, sans-serif;
-        }
+    http://www.apache.org/licenses/LICENSE-2.0
 
-        html, body {
-            padding: 0;
-            margin: 0;
-        }
-
-        html * {
-            box-sizing: border-box;
-        }
-
-        #unavailable {
-            display: block;
-        }
-
-        #unavailable p {
-            display: none;
-            font-size: 15px;
-            background: #444;
-            color: #FFF;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 10px;
-            line-height: 24px;
-        }
-
-        #status_text {
-            display: block;
-
-            background: #2196F3;
-            color: #FFF;
-            padding: 20px;
-            margin: 10px;
-
-            -webkit-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border-radius: 10px;
-        }
-
-        input {
-            display: block;
-            background: #FFF;
-            border: 1px solid #CCCCCC;
-            font-size: 14px;
-            color: #222;
-            width: 100%;
-            height: 46px;
-            padding: 10px;
-        }
-
-        button {
-            display: block;
-            margin-top: 10px;
-            width: 100%;
-            height: 34px;
-        }
-
-        .input_wrap {
-            padding: 0 10px;
-        }
-    </style>
-
-</head>
-<body><script>const localServerIp = '192.168.1.17'</script>
-
-<div id="unavailable">
-    <p>
-        It seems we can&apos;t connect to<br>127.0.0.1:8081<br>
-        <script>document.write(localServerIp)</script>
-        :8081<br><br>
-        You can test yourself with next inputs:
-    </p>
-
-    <div id="status_text">
-        Waiting for device ready...
-    </div>
-
-    <div class="input_wrap">
-        <input type="text" placeholder="Server Ip:Port (like 192.168.0.2:8081)" disabled>
-    </div>
-
-    <div class="input_wrap">
-        <button type="button" onclick="tryConnect()" disabled>Connect</button>
-    </div>
-</div>
-
-<script>
-    var deviceReadyChecker = setTimeout(startRedirectChecks, 5000);
-
-    document.addEventListener("deviceready", function () {
-        clearTimeout(deviceReadyChecker);
-
-        if (typeof navigator.splashscreen !== "undefined" && typeof navigator.splashscreen.hide === "function")
-            navigator.splashscreen.hide();
-
-        startRedirectChecks();
-    });
-
-    function startRedirectChecks() {
-        testConnection('127.0.0.1:8081', goUrl, function () {
-            testConnection(localServerIp + ':8081', goUrl, ajaxErr)
-        })
-    }
-
-    function tryConnect() {
-        var ipTest = /^([0-9]{1,3}\.){3}[0-9]{1,3}(:[0-9]{1,6})?$/,
-            ipPort = document.querySelector("input").value;
-
-        if (ipTest.test(ipPort))
-            testConnection(ipPort, goUrl, ajaxErr);
-    }
-
-    function testConnection(ipPort, callback, errCallback) {
-        var xhr = new XMLHttpRequest();
-
-        document.querySelector("button").disabled = true;
-        document.querySelector("input").disabled = true;
-        document.querySelector("#status_text").innerText = "Trying to connect http://" + ipPort;
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.querySelector("#status_text").innerText = "Connection to 'http://" + ipPort + "/' success! Redirecting...";
-
-                if (typeof callback === "function")
-                    callback(ipPort);
-            }
-            else if (xhr.readyState === 4 && xhr.status !== 200) {
-                document.querySelector("button").disabled = false;
-                document.querySelector("input").disabled = false;
-                document.querySelector("#status_text").innerText = "Connection to 'http://" + ipPort + "/' failed!";
-
-                if (typeof errCallback === "function")
-                    errCallback(ipPort);
-            }
-        }
-
-        xhr.open('GET', 'http://' + ipPort + '/');
-        xhr.send(null);
-    }
-
-    function goUrl(ipPort) {
-        setTimeout(function () {
-            window.location.href = 'http://' + ipPort + '/'
-        }, 1500);
-    }
-
-    function ajaxErr(ipPort) {
-        document.querySelector("#unavailable p").style.display = "block";
-        console.log('Can\'t connect to http://' + ipPort + '/');
-    }
-
-</script>
-
-
-<script src="cordova.js"></script></body></html>
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Apache Cordova</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="file.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
