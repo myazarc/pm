@@ -23,5 +23,6 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-sqlcipher-adapter" spec="^0.1.12-rc2" />
     <engine name="android" spec="^7.1.0" />
 </widget>

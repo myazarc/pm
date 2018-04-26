@@ -15,6 +15,9 @@
     },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.myazarc.pm"
+    },
+    "cordova-sqlcipher-adapter": {
+      "PACKAGE_NAME": "com.myazarc.pm"
     }
   },
   "dependent_plugins": {}

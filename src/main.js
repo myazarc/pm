@@ -24,6 +24,17 @@ Vue.component('m-footer', Footer);
 Vue.component('m-toolbar', Toolbar);
 Vue.component('m-content', Content);
 
+/** eslint-disable */
+
+window.db = null;
+Vue.mixin({
+  methods: {
+    getDb() {
+      return window.db;
+    },
+  },
+});
+
 // add cordova.js only if serving the app through file://
 if (window.location.protocol === 'file:' || window.location.port === '3000') {
   const cordovaScript = document.createElement('script');

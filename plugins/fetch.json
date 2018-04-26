@@ -22,5 +22,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-sqlcipher-adapter": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-sqlcipher-adapter"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

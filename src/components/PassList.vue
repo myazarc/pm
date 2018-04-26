@@ -95,5 +95,15 @@ export default {
       this.dialog1 = true;
     },
   },
+  created() {
+    /* eslint-disable */
+     window.db.transaction(function(tx) {
+      tx.executeSql('SELECT count(*) AS mycount FROM DemoTable', [], function(tx, rs) {
+        alert(rs.rows.item(0).mycount);
+      }, function(tx, error) {
+        console.log('SELECT error: ' + error.message);
+      });
+    });
+  },
 };
 </script>

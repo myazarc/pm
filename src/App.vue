@@ -28,6 +28,16 @@
         if (this.cordova.device.platform === 'Android') {
           document.addEventListener('backbutton', this.onBackKeyDown, false);
         }
+        window.db = window.sqlitePlugin.openDatabase({name: 'demo.db', key: 'your-password-here', location: 'default'});
+        window.db.transaction((tx) => {
+          tx.executeSql('CREATE TABLE IF NOT EXISTS DemoTable (name, score)');
+          tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Alice', 101]);
+          tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+        }, function(error) {
+          console.log('Transaction ERROR: ' + error.message);
+        }, function() {
+          console.log('Populated database OK');
+        });
       },
       onPause() {
         // Handle the pause lifecycle event.
