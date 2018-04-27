@@ -7,13 +7,10 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-file": {
+    "cordova-plugin-device": {
       "PACKAGE_NAME": "com.myazarc.pm"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.myazarc.pm"
-    },
-    "cordova-plugin-device": {
       "PACKAGE_NAME": "com.myazarc.pm"
     },
     "cordova-sqlcipher-adapter": {

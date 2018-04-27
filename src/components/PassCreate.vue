@@ -17,14 +17,21 @@
                 :type="e1 ? 'password' : 'text'"
                 dark
               ></v-text-field>
+              <v-text-field
+                label="Parola Tekrarı"
+                v-model="passrepeat"
+                :append-icon="e2 ? 'visibility' : 'visibility_off'"
+                :append-icon-cb="() => (e2 = !e2)"
+                :type="e2 ? 'password' : 'text'"
+                dark
+              ></v-text-field>
             </v-form>
             </v-container>
-                    <v-btn block color="primary" large dark @click.stop="userExist()">GİRİŞ YAP</v-btn>
+                    <v-btn block color="primary" large dark @click.stop="createPass()">Parola Oluştur</v-btn>
           </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
-
     <v-snackbar
         :timeout="2500"
         :top="true"
@@ -33,7 +40,6 @@
         {{ snackbarMessage }}
         <v-btn flat color="pink" @click.native="snackbar = false">KAPAT</v-btn>
       </v-snackbar>
-
   </v-container>
 </template>
 
@@ -42,26 +48,35 @@ export default {
   data() {
     return {
       e1: true,
+      e2: true,
       pass: '',
+      passrepeat: '',
       snackbarMessage: '',
       snackbar: false,
     };
   },
   methods: {
-    userExist() {
+    createPass() {
       const self = this;
+      if (self.pass.length < 4) {
+        self.snackbarMessage = 'Parola En Az 4 Karakter Olmalı!';
+        self.snackbar = true;
+        return;
+      }
+
+      if (self.pass !== self.passrepeat) {
+        self.snackbarMessage = 'Parolanız uyuşmuyor!';
+        self.snackbar = true;
+        return;
+      }
+
       window.db.transaction((tx) => {
-        tx.executeSql('SELECT count(*) AS mycount FROM USERS WHERE USERPASS=?', [self.pass], (tx, rs) => {
-          if (parseInt(rs.rows.item(0).mycount, 10) === 0) {
-            self.snackbarMessage = 'Parola Yanlış!';
-            self.snackbar = true;
-          } else {
-            self.$router.push({
-              path: '/passlist/',
-            });
-          }
+        tx.executeSql('INSERT INTO USERS (USERPASS) VALUES (?)', [self.pass], () => {
+          self.$router.push({
+            path: '/',
+          });
         }, () => {
-          self.snackbarMessage = 'Bir hata oluştu!';
+          self.snackbarMessage = 'Bir sorun oluştu!';
           self.snackbar = true;
         });
       });

@@ -16,17 +16,16 @@
 
           <v-list two-line>
             <template v-for="(item, index) in items">
-
-              <v-divider v-if="item.divider" :inset="item.inset" :key="index"></v-divider>
-              <v-list-tile avatar v-else :key="item.title" @click="openDialog()">
+              <v-list-tile avatar :key="item.ID" @click="openDialog(index)">
                 <v-list-tile-avatar>
-                  <img :src="item.avatar">
+                  <img :src="item.IMAGE">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
-                  <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                  <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                  <v-list-tile-title v-html="item.PASSNAME"></v-list-tile-title>
+                  <v-list-tile-sub-title v-html="item.PASSDESC"></v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
+              <v-divider :inset="true" :key="index"/>
             </template>
           </v-list>
 
@@ -37,19 +36,19 @@
   </m-content>
   
 
-     <v-dialog v-model="dialog1" max-width="500px" :persistent="true">
+     <v-dialog v-model="dialog1" max-width="500px">
           <v-card>
-            <v-card-media src="http://www.forumistanbul.com.tr/media/image/garanti.jpg" height="150px">
+            <v-card-media :src="selected.IMAGE" height="150px">
             <v-layout column class="media">
               <v-card-title>
                 <v-btn icon fab dark small color="primary" @click.stop="dialog1 = false">
                   <v-icon>chevron_left</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn fab dark small color="pink" icon class="mr-3">
+                <v-btn fab dark small color="pink" icon class="mr-3" :to="`/passadd/${selected.ID}/`">
                   <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn fab dark small color="red" icon>
+                <v-btn fab dark small color="red" @click="removeDialog()" icon>
                   <v-icon>close</v-icon>
                 </v-btn>
               </v-card-title>
@@ -58,14 +57,30 @@
           </v-card-media>
 
             <v-card-text>
-                <div class="subheading-1 pl-2">Parola Adı: <span class="title">Garanti Mobil Şube</span></div>
-                <div class="subheading-1 pl-2">Parola: <span class="title">title</span></div>
-                <div class="subheading-1 pl-2 ">
-                  Açıklama: Lorem ipsum dolor sit amet.</div>
+                <div class="subheading-1 pl-2">Parola Adı: <span class="title">{{ selected.PASSNAME }}</span></div>
+                <div class="subheading-1 pl-2">Parola: <span class="title">{{ selected.PASSWORD }}</span></div>
+                <div class="subheading-1 pl-2 ">{{ selected.PASSDESC }}</div>
 
 
 
                      
+
+            </v-card-text>
+
+          </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialog2" max-width="500px">
+          <v-card>
+            <v-card-title>
+              Silmek istediğinize emin misiniz?
+            </v-card-title>
+            <v-card-text>
+
+
+                      <v-btn depressed large color="red" block="true" @click.stop="removeRow()" style="text-transform:none">Evet</v-btn>
+                      <v-btn depressed large color="blue" block="true" @click.stop="dialog2 = !dialog1" style="text-transform:none">Hayır</v-btn>
+                      
 
             </v-card-text>
 
@@ -80,30 +95,50 @@ export default {
   data() {
     return {
       dialog1: false,
-      items: [
-        { header: 'Today' },
-        { avatar: 'http://www.forumistanbul.com.tr/media/image/garanti.jpg', title: 'Brunch this weekend?', subtitle: "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?" },
-        { divider: true, inset: true },
-        { avatar: 'https://vuetifyjs.com/static/doc-images/lists/2.jpg', title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>', subtitle: "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend." },
-        { divider: true, inset: true },
-        { avatar: 'https://vuetifyjs.com/static/doc-images/lists/3.jpg', title: 'Oui oui', subtitle: "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?" },
-      ],
+      dialog2: false,
+      items: [],
+      selected: {},
     };
   },
   methods: {
-    openDialog() {
+    openDialog(index) {
+      this.selected = this.items[index];
       this.dialog1 = true;
     },
-  },
-  created() {
-    /* eslint-disable */
-     window.db.transaction(function(tx) {
-      tx.executeSql('SELECT count(*) AS mycount FROM DemoTable', [], function(tx, rs) {
-        alert(rs.rows.item(0).mycount);
-      }, function(tx, error) {
-        console.log('SELECT error: ' + error.message);
+    removeDialog() {
+      this.dialog2 = true;
+    },
+    removeRow() {
+      const self = this;
+      const id = this.selected.ID;
+      this.dialog2 = false;
+      this.dialog1 = false;
+      /* eslint-disable */
+      window.db.transaction(function(tx) {
+        tx.executeSql('DELETE FROM PASSWORDS WHERE ID=?', [id], function(tx, rs) {
+          self.getAllPass();
+        }, function(tx, error) {
+          console.log('SELECT error: ' + error.message);
+        });
       });
-    });
+    },
+    getAllPass() {
+      const self = this;
+      /* eslint-disable */
+      window.db.transaction(function(tx) {
+        self.items = [];
+        tx.executeSql('SELECT * FROM PASSWORDS', [], function(tx, rs) {
+          for (let i=0;i<rs.rows.length;i++) {
+            self.items.push(rs.rows.item(i));
+          }
+        }, function(tx, error) {
+          console.log('SELECT error: ' + error.message);
+        });
+      });
+    },
+  },
+  mounted() {
+    this.getAllPass();
   },
 };
 </script>

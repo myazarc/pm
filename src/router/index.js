@@ -16,6 +16,11 @@ export default new Router({
       component: require('@/components/PassList'),
     },
     {
+      path: '/passcreate/',
+      name: 'PassCreate',
+      component: require('@/components/PassCreate'),
+    },
+    {
       path: '/passadd/:id/',
       name: 'PassAdd',
       component: require('@/components/PassAdd'),

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget android-versionCode="1" id="com.myazarc.pm" ios-CFBundleVersion="1" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>pm</name>
-    <description>A Vue.js project</description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <name>Pass Manager</name>
+    <description>Password Manager</description>
+    <author email="myazarc@gmail.com" href="myazarc.com">
+        myazarc
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
@@ -22,7 +22,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-sqlcipher-adapter" spec="^0.1.12-rc2" />
-    <engine name="android" spec="^7.1.0" />
+    <engine name="android" spec="^7.0.0" />
 </widget>

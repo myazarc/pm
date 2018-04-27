@@ -22,21 +22,31 @@
     },
     methods: {
       onDeviceReady() {
+        const self=this;
         // Handle the device ready event.
         this.cordova.on('pause', this.onPause, false);
         this.cordova.on('resume', this.onResume, false);
         if (this.cordova.device.platform === 'Android') {
           document.addEventListener('backbutton', this.onBackKeyDown, false);
         }
-        window.db = window.sqlitePlugin.openDatabase({name: 'demo.db', key: 'your-password-here', location: 'default'});
+        window.db = window.sqlitePlugin.openDatabase({name: 'PassMan.db', key: '929b39b2ab0e9ccb9204b', location: 'default'});
         window.db.transaction((tx) => {
-          tx.executeSql('CREATE TABLE IF NOT EXISTS DemoTable (name, score)');
-          tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Alice', 101]);
-          tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+          tx.executeSql('CREATE TABLE IF NOT EXISTS USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT, USERPASS TEXT NOT NULL)');
+          tx.executeSql('CREATE TABLE IF NOT EXISTS PASSWORDS (ID INTEGER PRIMARY KEY AUTOINCREMENT, PASSNAME TEXT NOT NULL,PASSWORD TEXT NOT NULL, PASSDESC TEXT, IMAGE TEXT, IMAGENAME TEXT)');
         }, function(error) {
           console.log('Transaction ERROR: ' + error.message);
         }, function() {
-          console.log('Populated database OK');
+          window.db.transaction(function(tx) {
+            tx.executeSql('SELECT count(*) AS mycount FROM USERS', [], function(tx, rs) {
+              if (rs.rows.item(0).mycount<1) {
+                self.$router.push({
+                  path: '/passcreate/',
+                });
+              }
+            }, function(tx, error) {
+              console.log('SELECT error: ' + error.message);
+            });
+          });
         });
       },
       onPause() {
