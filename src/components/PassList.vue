@@ -41,10 +41,14 @@
             <v-card-media :src="selected.IMAGE" height="150px">
             <v-layout column class="media">
               <v-card-title>
+                
                 <v-btn icon fab dark small color="primary" @click.stop="dialog1 = false">
                   <v-icon>chevron_left</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
+                <v-btn icon fab dark right small color="orange" @click.stop="copyPass()">
+                  <v-icon>content_copy</v-icon>
+                </v-btn>
                 <v-btn fab dark small color="pink" icon class="mr-3" :to="`/passadd/${selected.ID}/`">
                   <v-icon>edit</v-icon>
                 </v-btn>
@@ -58,7 +62,9 @@
 
             <v-card-text>
                 <div class="subheading-1 pl-2">Parola Adı: <span class="title">{{ selected.PASSNAME }}</span></div>
-                <div class="subheading-1 pl-2">Parola: <span class="title">{{ selected.PASSWORD }}</span></div>
+                <div class="subheading-1 pl-2">Parola: <span class="title">{{ selected.PASSWORD }}</span> 
+                  
+                </div>
                 <div class="subheading-1 pl-2 ">{{ selected.PASSDESC }}</div>
 
 
@@ -86,6 +92,15 @@
 
           </v-card>
         </v-dialog>
+
+        <v-snackbar
+        :timeout="2500"
+        :top="true"
+        v-model="snackbar"
+      >
+        {{ snackbarMessage }}
+        <v-btn flat color="pink" @click.native="snackbar = false">KAPAT</v-btn>
+      </v-snackbar>
     
 </div>
 </template>
@@ -98,9 +113,16 @@ export default {
       dialog2: false,
       items: [],
       selected: {},
+      snackbarMessage: '',
+      snackbar: false,
     };
   },
   methods: {
+    copyPass() {
+      window.cordova.plugins.clipboard.copy(this.selected.PASSWORD);
+      this.snackbarMessage = 'Parola Kopyalandı!';
+      this.snackbar = true;
+    },
     openDialog(index) {
       this.selected = this.items[index];
       this.dialog1 = true;

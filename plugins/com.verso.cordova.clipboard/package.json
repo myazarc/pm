@@ -1,0 +1,59 @@
+{
+  "_from": "git+https://github.com/ibnclaudius/CordovaClipboard.git",
+  "_id": "cordova-clipboard@0.1.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-clipboard",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/ibnclaudius/CordovaClipboard",
+    "rawSpec": "https://github.com/ibnclaudius/CordovaClipboard",
+    "saveSpec": "git+https://github.com/ibnclaudius/CordovaClipboard.git",
+    "fetchSpec": "https://github.com/ibnclaudius/CordovaClipboard.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/ibnclaudius/CordovaClipboard.git#a27b871795ce8e10feacb2403347599116832fd6",
+  "_spec": "https://github.com/ibnclaudius/CordovaClipboard",
+  "_where": "/home/proder/pm",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/VersoSolutions/CordovaClipboard/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "com.verso.cordova.clipboard",
+    "platforms": [
+      "ios",
+      "android",
+      "wp8"
+    ]
+  },
+  "deprecated": false,
+  "description": "Clipboard management plugin for Cordova/PhoneGap",
+  "engines": {
+    "name": "cordova",
+    "version": ">=3.0.0"
+  },
+  "homepage": "https://github.com/VersoSolutions/CordovaClipboard#readme",
+  "keywords": [
+    "clipboard",
+    "copy",
+    "paste",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-wp8"
+  ],
+  "license": "MIT",
+  "name": "cordova-clipboard",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VersoSolutions/CordovaClipboard.git"
+  },
+  "version": "0.1.0"
+}

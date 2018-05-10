@@ -32,7 +32,7 @@
           ></v-text-field>
           </v-flex>
                      <v-flex x1 class="pt-3">
-    <v-btn dark color="orange" @click.stop="passGenerate()">Üret</v-btn>
+    <v-btn dark color="orange" @click.stop="dialog1 = !dialog1">Üret</v-btn>
    </v-flex>
                         </v-layout>
 
@@ -63,6 +63,50 @@
         {{ snackbarMessage }}
         <v-btn flat color="pink" @click.native="snackbar = false">KAPAT</v-btn>
       </v-snackbar>
+
+
+      <v-dialog v-model="dialog1" max-width="500px">
+          <v-card>
+            <v-card-title>
+              Parola Üret
+            </v-card-title>
+
+            <v-card-text>
+                <v-text-field
+                label="Uzunluk"
+                v-model="passLength"
+              ></v-text-field>
+                <v-checkbox
+                label="Harf"
+                v-model="isAlpha"
+              ></v-checkbox>
+              <v-checkbox
+                label="Sayı"
+                v-model="isNumeric"
+              ></v-checkbox>
+              <v-checkbox
+                label="Özel Karakter"
+                v-model="isSpecial"
+              ></v-checkbox>
+              <v-checkbox
+                label="Kopyala"
+                v-model="isCopy"
+              ></v-checkbox>
+              
+
+
+
+                     
+
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn depressed color="green" @click.stop="passGenerate()">Üret</v-btn>
+            </v-card-actions>
+
+          </v-card>
+        </v-dialog>
     
 </div>
 </template>
@@ -84,6 +128,12 @@ export default {
       desc: '',
       snackbarMessage: '',
       snackbar: false,
+      dialog1: false,
+      isAlpha: true,
+      isNumeric: true,
+      isSpecial: true,
+      isCopy: false,
+      passLength: 8,
     };
   },
   mounted() {
@@ -148,7 +198,7 @@ export default {
       }
     },
     passGenerate() {
-      const length = 10;
+      const length = this.passLength;
       const string = "abcdefghijklmnopqrstuvwxyz"; //to upper 
       const numeric = '0123456789';
       const punctuation = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
@@ -160,17 +210,34 @@ export default {
       let entity3 = "";
       let hold = "";
       while( password.length < length ) {
+        if (this.isAlpha) {
           entity1 = Math.ceil(string.length * Math.random()*Math.random());
-          entity2 = Math.ceil(numeric.length * Math.random()*Math.random());
-          entity3 = Math.ceil(punctuation.length * Math.random()*Math.random());
           hold = string.charAt( entity1 );
           hold = (entity1%2==0)?(hold.toUpperCase()):(hold);
           character += hold;
+        }
+
+        if (this.isNumeric) {
+          entity2 = Math.ceil(numeric.length * Math.random()*Math.random());
           character += numeric.charAt( entity2 );
+        }
+
+        if (this.isSpecial) {
+          entity3 = Math.ceil(punctuation.length * Math.random()*Math.random());
           character += punctuation.charAt( entity3 );
-          password = character;
+        }
+        
+        password = character.substring(0, length);
       }
       this.pass=password;
+      this.dialog1=!this.dialog1;
+
+      if (this.isCopy){
+        window.cordova.plugins.clipboard.copy(password);
+        this.snackbarMessage = 'Parola Kopyalandı!';
+        this.snackbar = true;
+      }
+
     },
   },
 };

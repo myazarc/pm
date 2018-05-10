@@ -22,5 +22,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "com.verso.cordova.clipboard": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/ibnclaudius/CordovaClipboard"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
