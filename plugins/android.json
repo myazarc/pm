@@ -7,6 +7,9 @@
     "files": {}
   },
   "installed_plugins": {
+    "com.verso.cordova.clipboard": {
+      "PACKAGE_NAME": "com.myazarc.pm"
+    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.myazarc.pm"
     },
@@ -16,7 +19,7 @@
     "cordova-sqlcipher-adapter": {
       "PACKAGE_NAME": "com.myazarc.pm"
     },
-    "com.verso.cordova.clipboard": {
+    "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.myazarc.pm"
     }
   },

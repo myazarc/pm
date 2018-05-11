@@ -38,6 +38,8 @@
 </template>
 
 <script>
+
+
 export default {
   data() {
     return {
@@ -49,6 +51,18 @@ export default {
   },
   methods: {
     userExist() {
+      /** console.log(FingerprintAuth);
+        FingerprintAuth.isAvailable(function (result) {
+        console.log("FingerprintAuth available: " + JSON.stringify(result));
+        if (result.isAvailable) {
+            var encryptConfig = {}; // See config object for required parameters
+            //FingerprintAuth.encrypt(encryptConfig, encryptSuccessCallback, encryptErrorCallback);
+        }
+      }, function (message) {
+          console.log("isAvailableError(): " + message);
+      });
+        return;
+      */
       const self = this;
       window.db.transaction((tx) => {
         tx.executeSql('SELECT count(*) AS mycount FROM USERS WHERE USERPASS=?', [self.pass], (tx, rs) => {

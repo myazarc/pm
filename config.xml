@@ -24,5 +24,9 @@
     </platform>
     <plugin name="cordova-sqlcipher-adapter" spec="^0.1.12-rc2" />
     <plugin name="com.verso.cordova.clipboard" spec="https://github.com/ibnclaudius/CordovaClipboard" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <icon src="res/icon/android/icon.png" />
+    <splash src="res/screen/android/splash.png" />
+    <preference name="ShowSplashScreenSpinner" value="false"/>
     <engine name="android" spec="^7.0.0" />
 </widget>
