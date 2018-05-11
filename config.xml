@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="3" id="com.myazarc.pm" ios-CFBundleVersion="1" version="1.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="4" id="com.myazarc.pm" ios-CFBundleVersion="1" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Pass Manager</name>
     <description>Password Manager</description>
     <author email="myazarc@gmail.com" href="myazarc.com">
@@ -27,6 +27,6 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <icon src="res/icon/android/icon.png" />
     <splash src="res/screen/android/splash.png" />
-    <preference name="ShowSplashScreenSpinner" value="false"/>
+    <preference name="ShowSplashScreenSpinner" value="false" />
     <engine name="android" spec="^7.0.0" />
 </widget>
