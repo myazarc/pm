@@ -1,8 +1,12 @@
-# pm
+# Pasword Manager (Parola Saklayıcı)
 
-> A Vue.js project
+> Vue.js ve cordova ile yazılmış olan bir Parola saklama ve yönetim programı
 
-## Build Setup
+## Screenshots
+
+![Image of Yaktocat](screenshots/all.png)
+
+## Kurulum ve Yayına Alma
 
 ``` bash
 # install dependencies
