@@ -4,6 +4,9 @@
  
   <m-toolbar title="Parolalar">
     <v-spacer></v-spacer>
+    <v-btn icon @click.stop="importExportDialog = !importExportDialog">
+              <v-icon large>import_export</v-icon>
+            </v-btn>
     <v-btn icon to="/passadd/0/">
               <v-icon large>add_circle</v-icon>
             </v-btn>
@@ -93,6 +96,39 @@
           </v-card>
         </v-dialog>
 
+        <v-dialog v-model="importExportDialog" max-width="500px">
+          <v-card>
+            <v-card-title>
+              Import/Export
+            </v-card-title>
+            <v-card-text>
+               <v-radio-group v-model="importExportType">
+                <v-radio
+                  label="Export"
+                  value="export"
+                ></v-radio>
+                <v-radio
+                  label="Import"
+                  value="import"
+                ></v-radio>
+              </v-radio-group>
+
+              <v-text-field
+              label="Parola"
+              v-model="importExportPass"
+            ></v-text-field>
+
+            <file-input v-model="file" accept="text/*" @files="filesmi">
+
+
+            <v-btn depressed large color="orange" block="true" @click.stop="runImportExport()" style="text-transform:none">Çalıştır</v-btn>
+                      
+
+            </v-card-text>
+
+          </v-card>
+        </v-dialog>
+
         <v-snackbar
         :timeout="2500"
         :top="true"
@@ -106,18 +142,62 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import Crypto from 'crypto-js';
+
+import FileInput from './helpers/FileInput';
+
+Vue.component('file-input', FileInput);
 export default {
   data() {
     return {
+      importExportType: 'export',
       dialog1: false,
       dialog2: false,
       items: [],
       selected: {},
       snackbarMessage: '',
       snackbar: false,
+      importExportDialog: false,
+      importExportPass: null,
+      file:null,
+      textData:null,
     };
   },
   methods: {
+    runImportExport(){
+      if(this.importExportPass==null) {
+        this.snackbarMessage = 'Lütfen geçerli bir parola giriniz!';
+        this.snackbar = true;
+        return;
+      }
+
+      if(this.importExportType=='export'){
+
+        
+
+      }
+
+
+
+    },
+    filesmi(files) {
+      const self=this;
+      const reader = new FileReader();
+
+
+      reader.onload = (e) => {
+        self.textData = e.target.result;
+      };
+
+      reader.readAsDataURL(files[0]);
+    },
+    encrypt(data,pass){
+      return Crypto.AES.encrypt(data,pass);
+    },
+    decrypt(){
+      return Crypto.AES.decrypt(data.toString(),pass).toString(CryptoJS.enc.Utf8);
+    },
     copyPass() {
       window.cordova.plugins.clipboard.copy(this.selected.PASSWORD);
       this.snackbarMessage = 'Parola Kopyalandı!';

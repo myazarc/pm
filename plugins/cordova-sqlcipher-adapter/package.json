@@ -1,0 +1,67 @@
+{
+  "_from": "cordova-sqlcipher-adapter",
+  "_id": "cordova-sqlcipher-adapter@0.1.12-rc2",
+  "_inBundle": false,
+  "_integrity": "sha512-bbASne7/rvEG54PtpKQwC00ZNV0NoIHmCH2oXAXzf6uIx46CWUvKk8b8wt/DgZtLygWyzGVqM5FAgdRfrfZPvw==",
+  "_location": "/cordova-sqlcipher-adapter",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-sqlcipher-adapter",
+    "name": "cordova-sqlcipher-adapter",
+    "escapedName": "cordova-sqlcipher-adapter",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-sqlcipher-adapter/-/cordova-sqlcipher-adapter-0.1.12-rc2.tgz",
+  "_shasum": "1c83df423f2ac5bd5eec459082332fe46489fbcc",
+  "_spec": "cordova-sqlcipher-adapter",
+  "_where": "/home/proder/pm",
+  "author": {
+    "name": "various"
+  },
+  "bugs": {
+    "url": "https://github.com/litehelpers/Cordova-sqlcipher-adapter/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-sqlcipher-adapter",
+    "platforms": [
+      "android",
+      "ios",
+      "osx",
+      "windows"
+    ]
+  },
+  "deprecated": false,
+  "description": "SQLCipher database adapter for PhoneGap/Cordova, based on cordova-sqlite-storage",
+  "devDependencies": {
+    "shelljs": "^0.7.4"
+  },
+  "homepage": "https://github.com/litehelpers/Cordova-sqlcipher-adapter",
+  "keywords": [
+    "sqlite",
+    "sqlcipher",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-osx",
+    "cordova-windows"
+  ],
+  "license": "MIT",
+  "name": "cordova-sqlcipher-adapter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litehelpers/Cordova-sqlcipher-adapter.git"
+  },
+  "scripts": {
+    "start": "node scripts/prepareSpec.js"
+  },
+  "version": "0.1.12-rc2"
+}

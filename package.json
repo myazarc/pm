@@ -1,6 +1,6 @@
 {
   "name": "pm",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "A Vue.js project",
   "author": "myazarc <i@myazarc.com>",
   "private": true,
@@ -18,11 +18,11 @@
   "dependencies": {
     "com.verso.cordova.clipboard": "https://github.com/ibnclaudius/CordovaClipboard",
     "cordova-android": "^7.0.0",
-    "cordova-clipboard": "git+https://github.com/ibnclaudius/CordovaClipboard.git",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-sqlcipher-adapter": "^0.1.12-rc2",
+    "crypto-js": "^3.1.9-1",
     "vue": "^2.3.3",
     "vue-cordova": "^0.1.2",
     "vue-head": "^2.0.12",
